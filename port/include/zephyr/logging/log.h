@@ -52,6 +52,10 @@
 #define CONFIG_BT_L2CAP_LOG_LEVEL CONFIG_BT_DEBUG_LOG_LEVEL
 #endif
 
+#ifndef CONFIG_SETTINGS_LOG_LEVEL
+#define CONFIG_SETTINGS_LOG_LEVEL CONFIG_BT_DEBUG_LOG_LEVEL
+#endif
+
 struct port_log_module_data {
     const char *name;
     int level;
@@ -104,7 +108,7 @@ static struct port_log_module_data *__log_module __attribute__((used)) = &__log_
 
 #define LOG_MODULE_REGISTER(...) _LOG_MODULE_REGISTER_N(_NUM_ARGS(__VA_ARGS__), __VA_ARGS__)
 
-#define LOG_MODULE_DECLARE(...) LOG_MODULE_REGISTER(...)
+#define LOG_MODULE_DECLARE(...) LOG_MODULE_REGISTER(__VA_ARGS__)
 
 /* Core logging implementation: forward messages to syslog() when enabled
  * by both the global Bluetooth log level and the per-module log level.
